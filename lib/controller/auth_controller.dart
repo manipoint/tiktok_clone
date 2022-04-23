@@ -69,8 +69,7 @@ class AuthController extends GetxController {
           displayPhoto: downloadUrl,
           email: email,
           uid: credential.user!.uid);
-      await firebaseFirestore
-          .collection("users")
+      await userCollection
           .doc(credential.user!.uid)
           .set(userModel.toJson());
     } on FirebaseAuthException catch (e) {

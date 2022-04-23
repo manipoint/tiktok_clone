@@ -18,8 +18,7 @@ class CommentController extends GetxController {
   }
 
   getComment() async {
-    _comment.bindStream(firebaseFirestore
-        .collection(mediaController.videosCollection)
+    _comment.bindStream(videosCollection
         .doc(_postId)
         .collection(commentCollection)
         .snapshots()
@@ -39,8 +38,7 @@ class CommentController extends GetxController {
             .collection("users")
             .doc(authController.user.uid)
             .get();
-        var commentData = await firebaseFirestore
-            .collection(mediaController.videosCollection)
+        var commentData = await videosCollection
             .doc(_postId)
             .collection(commentCollection)
             .get();
@@ -53,18 +51,15 @@ class CommentController extends GetxController {
             likes: [],
             displayPhoto: (userData.data() as dynamic)["displayPhoto"],
             datePublish: DateTime.now());
-        await firebaseFirestore
-            .collection(mediaController.videosCollection)
+        await videosCollection
             .doc(_postId)
             .collection(commentCollection)
             .doc('comment $commentLength')
             .set(commentModel.toJson());
-        DocumentSnapshot documentSnapshot = await firebaseFirestore
-            .collection(mediaController.videosCollection)
+        DocumentSnapshot documentSnapshot = await videosCollection
             .doc(_postId)
             .get();
-        await firebaseFirestore
-            .collection(mediaController.videosCollection)
+        await videosCollection
             .doc(_postId)
             .update({
           'commentCount':
@@ -84,15 +79,13 @@ class CommentController extends GetxController {
 
   likeComment(String id) async {
     var uid = authController.user.uid;
-    DocumentSnapshot snapshot = await firebaseFirestore
-        .collection(mediaController.videosCollection)
+    DocumentSnapshot snapshot = await videosCollection
         .doc(_postId)
         .collection(commentCollection)
         .doc(id)
         .get();
     if ((snapshot.data() as dynamic)['likes'].contains(uid)) {
-      await firebaseFirestore
-          .collection(mediaController.videosCollection)
+      await videosCollection
           .doc(_postId)
           .collection(commentCollection)
           .doc(id)
@@ -100,8 +93,7 @@ class CommentController extends GetxController {
         'likes': FieldValue.arrayRemove([uid]),
       });
     } else {
-      await firebaseFirestore
-          .collection(mediaController.videosCollection)
+      await videosCollection
           .doc(_postId)
           .collection(commentCollection)
           .doc(id)

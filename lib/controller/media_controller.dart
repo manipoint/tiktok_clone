@@ -16,10 +16,8 @@ class MediaController extends GetxController {
   static MediaController instance = Get.find();
   late Rx<XFile?> pickedImage;
   final Rx<List<Video>> videoList = Rx<List<Video>>([]);
-  // List<Video> get videoList => _videoList.value;
 
   dynamic _pickImageError;
-  String videosCollection = "videos";
 
   late TextEditingController songController;
   late TextEditingController captionController;
@@ -44,8 +42,7 @@ class MediaController extends GetxController {
   }
 //video section
 
-  Stream<List<Video>> getVideos() =>
-      firebaseFirestore.collection(videosCollection).snapshots().map((event) {
+  Stream<List<Video>> getVideos() => videosCollection.snapshots().map((event) {
         List<Video> retVal = [];
         for (var element in event.docs) {
           retVal.add(Video.fromSnap(element));
@@ -134,7 +131,7 @@ class MediaController extends GetxController {
   }
 
   Future<String> _uploadVideoToStorage(String id, String path) async {
-    Reference reference = storage.ref().child(videosCollection).child(id);
+    Reference reference = storage.ref().child('videos').child(id);
     UploadTask uploadTask = reference.putFile(await _compressVideo(path));
     TaskSnapshot snapshot = await uploadTask;
     String downloadUrl = await snapshot.ref.getDownloadURL();
@@ -158,9 +155,8 @@ class MediaController extends GetxController {
   uploadVideo(String songName, String caption, String path) async {
     try {
       String uid = auth.currentUser!.uid;
-      DocumentSnapshot documentSnapshot =
-          await firebaseFirestore.collection("users").doc(uid).get();
-      var videoDoc = await firebaseFirestore.collection(videosCollection).get();
+      DocumentSnapshot documentSnapshot = await userCollection.doc(uid).get();
+      var videoDoc = await firebaseFirestore.collection('videos').get();
       int videoLength = videoDoc.docs.length;
       String videoUrl = await _uploadVideoToStorage("Video $videoLength", path);
       String thumbnail =
@@ -178,10 +174,7 @@ class MediaController extends GetxController {
           profilePhoto: (documentSnapshot.data()!
               as Map<String, dynamic>)['displayPhoto'],
           thumbnail: thumbnail);
-      await firebaseFirestore
-          .collection(videosCollection)
-          .doc("Video $videoLength")
-          .set(video.toJson());
+      await videosCollection.doc("Video $videoLength").set(video.toJson());
 
       Get.back();
     } catch (err) {

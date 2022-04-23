@@ -5,7 +5,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:tiktok_clone/controller/media_controller.dart';
-import 'package:tiktok_clone/view/pages/home_page.dart';
 import 'package:tiktok_clone/view/pages/search_page.dart';
 
 import 'controller/auth_controller.dart';
@@ -23,6 +22,11 @@ final Future<FirebaseApp> initialization = Firebase.initializeApp();
 FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
 FirebaseAuth auth = FirebaseAuth.instance;
 FirebaseStorage storage = FirebaseStorage.instance;
+
+//firebase collection
+var userCollection = firebaseFirestore.collection("users");
+ var videosCollection = firebaseFirestore.collection("videos");
+ 
 
 // getx binding
 AuthController authController = AuthController.instance;

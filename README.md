@@ -1,10 +1,10 @@
 # tiktok_clone
 
-tictok clone app using Getx .
+Tictok clone app using Getx .
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+This project is a clone flutter app of Tictok.
 
 A few resources to get you started if this is your first Flutter project:
 
@@ -12,6 +12,10 @@ A few resources to get you started if this is your first Flutter project:
 - [Getx for State management, Intelligent dependency injection, and Route management](https://pub.dev/packages/get)
 - [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
 
-For help getting started with Flutter, view our
+state management, intelligent dependency injection, and route managemen
 [online documentation](https://flutter.dev/docs), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+
+
+
+

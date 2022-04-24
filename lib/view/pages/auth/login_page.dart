@@ -1,25 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:tiktok_clone/const/text_felid_const.dart';
 import 'package:tiktok_clone/view/pages/auth/sign_up_page.dart';
 import 'package:tiktok_clone/view/widgets/text_input_field.dart';
 
-import '../../../constants.dart';
+import '../../../const/constants.dart';
 
 class LoginPage extends StatelessWidget {
-
-
+  final GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: SingleChildScrollView(
         child: Form(
-      
+          key: loginFormKey,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            
             children: [
-              const SizedBox(height: 68,),
+              vertical120,
               const Text("Tictok Clone",
                   style: TextStyle(
                     fontSize: 38,
@@ -58,7 +57,8 @@ class LoginPage extends StatelessWidget {
                 width: MediaQuery.of(context).size.width,
                 margin: const EdgeInsets.symmetric(horizontal: 18),
                 child: TextInputFieldWithValidator(
-                  validator: ((value) => authController.validatePassword(value!)),
+                  validator: ((value) =>
+                      authController.validatePassword(value!)),
                   controller: authController.passwordController,
                   labelText: "Password",
                   isObscure: true,
@@ -78,8 +78,14 @@ class LoginPage extends StatelessWidget {
                     color: buttonColor),
                 child: InkWell(
                   onTap: () {
-                    authController.checkLogin(authController.emailController.text,
+                    final isValid = loginFormKey.currentState!.validate();
+                    if (!isValid) {
+                      return;
+                    }
+                    authController.checkLogin(
+                        authController.emailController.text,
                         authController.passwordController.text);
+                    loginFormKey.currentState!.save();
                   },
                   child: const Center(
                     child: Text(

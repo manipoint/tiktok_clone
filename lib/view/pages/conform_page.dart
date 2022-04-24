@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:tiktok_clone/constants.dart';
+import 'package:tiktok_clone/const/constants.dart';
 import 'package:tiktok_clone/view/widgets/text_input_field.dart';
 import 'package:video_player/video_player.dart';
 

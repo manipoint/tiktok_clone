@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:tiktok_clone/constants.dart';
+import 'package:tiktok_clone/const/constants.dart';
 import 'package:tiktok_clone/controller/comment_controller.dart';
 import 'package:timeago/timeago.dart' as timeago;
 

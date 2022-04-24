@@ -22,4 +22,18 @@ class UserModel {
 
   Map<String, dynamic> toJson() =>
       {"name": name, "displayPhoto": displayPhoto, "email": email, "uid": uid};
+
+  UserModel copyWith({
+    String? name,
+    String? displayPhoto,
+    String? email,
+    String? uid,
+  }) {
+    return UserModel(
+      name: name ?? this.name,
+      displayPhoto: displayPhoto ?? this.displayPhoto,
+      email: email ?? this.email,
+      uid: uid ?? this.uid,
+    );
+  }
 }

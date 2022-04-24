@@ -4,21 +4,23 @@ import 'package:get/get.dart';
 import 'package:tiktok_clone/view/pages/auth/login_page.dart';
 import 'package:tiktok_clone/view/widgets/text_input_field.dart';
 
-import '../../../constants.dart';
+import '../../../const/all_const.dart';
+import '../../../const/constants.dart';
 
 class SignUpPage extends StatelessWidget {
+  final GlobalKey<FormState> _signUpFormKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: SingleChildScrollView(
         child: Form(
+          key: _signUpFormKey,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const SizedBox(
-                height: 24,
-              ),
+              vertical50,
               const Text("Tictok Clone",
                   style: TextStyle(
                     fontSize: 32,
@@ -46,11 +48,12 @@ class SignUpPage extends StatelessWidget {
                           radius: 64,
                           backgroundImage: AssetImage("assets/images/dp.png"),
                         )
-                      : SizedBox(
-                          height: 120,
-                          width: 120,
+                      : ClipOval(
+                          child: SizedBox(
+                          height: 100,
+                          width: 100,
                           child: mediaController.previewImage(),
-                        )),
+                        ))),
                   Positioned(
                     bottom: -10,
                     left: 80,
@@ -134,11 +137,19 @@ class SignUpPage extends StatelessWidget {
                     ),
                     color: buttonColor),
                 child: InkWell(
-                  onTap: () => authController.registerUser(
-                      authController.usernameController.text,
-                      authController.emailController.text,
-                      authController.passwordController.text,
-                      mediaController.displayPhoto),
+                  onTap: () {
+                    final isValid = _signUpFormKey.currentState!.validate();
+                    if (!isValid) {
+                      return;
+                    }
+                    authController.registerUser(
+                        authController.usernameController.text,
+                        authController.emailController.text,
+                        authController.passwordController.text,
+                        mediaController.displayPhoto);
+
+                    _signUpFormKey.currentState!.save();
+                  },
                   child: const Center(
                     child: Text(
                       "Sign Up",

@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
-import 'package:tiktok_clone/constants.dart';
+import 'package:tiktok_clone/const/constants.dart';
 
 import '../model/comment_model.dart';
 

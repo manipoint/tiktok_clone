@@ -5,13 +5,14 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:tiktok_clone/controller/media_controller.dart';
+import 'package:tiktok_clone/view/pages/chat/message_page.dart';
 import 'package:tiktok_clone/view/pages/search_page.dart';
 
-import 'controller/auth_controller.dart';
-import 'controller/home_controller.dart';
-import 'view/pages/add_video_page.dart';
-import 'view/pages/profile_page.dart';
-import 'view/pages/video_page.dart';
+import '../../controller/auth_controller.dart';
+import '../../controller/home_controller.dart';
+import '../../view/pages/add_video_page.dart';
+import '../../view/pages/profile_page.dart';
+import '../../view/pages/video_page.dart';
 
 const backgroundColor = Color.fromRGBO(47, 46, 46, 1);
 const buttonColor = Color.fromRGBO(148, 36, 36, 1);
@@ -36,8 +37,8 @@ MediaController mediaController = MediaController.instance;
 //pages
 List pages = [
   const VideoPage(),
-  const SearchPage(),
+  SearchPage(),
   const AddVideoPage(),
-  const Text("asdf"),
+  MessagePage(),
   ProfilePage(uid: authController.user.uid),
 ];

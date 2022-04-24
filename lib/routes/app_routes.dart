@@ -1,8 +1,9 @@
 import 'package:get/get.dart';
-import 'package:tiktok_clone/constants.dart';
+
 import 'package:tiktok_clone/view/pages/auth/login_page.dart';
 import 'package:tiktok_clone/view/pages/auth/sign_up_page.dart';
 
+import '../const/constants.dart';
 import '../view/pages/add_video_page.dart';
 import '../view/pages/conform_page.dart';
 import '../view/pages/home_page.dart';
@@ -18,7 +19,7 @@ class AppRoutes {
     GetPage(name: '/home', page: () => const HomePage()),
     GetPage(name: '/video', page: () => const VideoPage()),
     GetPage(name: '/add-video', page: () => const AddVideoPage()),
-    GetPage(name: '/search', page: () => const SearchPage()),
+    GetPage(name: '/search', page: () => SearchPage()),
     GetPage(
         name: '/profile',
         page: () => ProfilePage(

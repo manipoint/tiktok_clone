@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tiktok_clone/constants.dart';
+import 'package:tiktok_clone/const/constants.dart';
 
 class AddVideoPage extends StatelessWidget {
   const AddVideoPage({Key? key}) : super(key: key);

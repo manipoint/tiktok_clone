@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:tiktok_clone/constants.dart';
 import 'package:tiktok_clone/controller/auth_controller.dart';
 import 'package:tiktok_clone/controller/home_controller.dart';
 import 'package:tiktok_clone/routes/app_routes.dart';
 
+import 'const/constants.dart';
 import 'controller/media_controller.dart';
 
 void main() async {

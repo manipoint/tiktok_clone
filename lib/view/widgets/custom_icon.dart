@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:tiktok_clone/constants.dart';
+
+import '../../const/constants.dart';
+
 
 class CustomIcon extends StatelessWidget {
 

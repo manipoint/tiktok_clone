@@ -6,7 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:tiktok_clone/constants.dart';
+import 'package:tiktok_clone/const/constants.dart';
 import 'package:tiktok_clone/view/pages/conform_page.dart';
 import 'package:video_compress/video_compress.dart';
 
@@ -228,7 +228,10 @@ class MediaController extends GetxController {
         return Image.network(pickedImage.value!.path);
       } else {
         return Semantics(
-            child: Image.file(File(pickedImage.value!.path)), label: 'image');
+          child: Image.file(File(pickedImage.value!.path,),fit: BoxFit.cover,),
+          label: 'image',
+          
+        );
       }
     } else if (_pickImageError != null) {
       return Get.snackbar("Error", _pickImageError, colorText: Colors.red);

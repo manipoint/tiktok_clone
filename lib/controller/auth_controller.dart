@@ -5,7 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:tiktok_clone/constants.dart';
+import 'package:tiktok_clone/const/constants.dart';
 import 'package:tiktok_clone/model/user_model.dart';
 import 'package:tiktok_clone/view/pages/auth/login_page.dart';
 
@@ -69,25 +69,27 @@ class AuthController extends GetxController {
           displayPhoto: downloadUrl,
           email: email,
           uid: credential.user!.uid);
-      await userCollection
-          .doc(credential.user!.uid)
-          .set(userModel.toJson());
+      await userCollection.doc(credential.user!.uid).set(userModel.toJson());
     } on FirebaseAuthException catch (e) {
       Get.snackbar("Error", e.toString());
     }
   }
 
   String? validateEmail(String value) {
-    Pattern pattern =
-        r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]"
-        r"{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]"
-        r"{0,253}[a-zA-Z0-9])?)*$";
-    RegExp regex = RegExp(pattern.toString());
-    if (!regex.hasMatch(value)) {
-      return 'Enter a valid email address';
-    } else {
-      return null;
+    if (!GetUtils.isEmail(value)) {
+      return "Provide valid Email";
     }
+    return null;
+    // Pattern pattern =
+    //     r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]"
+    //     r"{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]"
+    //     r"{0,253}[a-zA-Z0-9])?)*$";
+    // RegExp regex = RegExp(pattern.toString());
+    // if (!regex.hasMatch(value)) {
+    //   return 'Enter a valid email address';
+    // } else {
+    //   return null;
+    // }
   }
 
   String? validatePassword(String value) {
@@ -114,7 +116,7 @@ class AuthController extends GetxController {
   void checkLogin(String email, String password) {
     try {
       auth.signInWithEmailAndPassword(email: email, password: password);
-    }on FirebaseAuthException catch (e) {
+    } on FirebaseAuthException catch (e) {
       Get.snackbar(
         'Error Logging in',
         e.toString(),

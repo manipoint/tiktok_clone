@@ -1,9 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:tiktok_clone/constants.dart';
+import 'package:tiktok_clone/const/constants.dart';
+import 'package:tiktok_clone/const/text_felid_const.dart';
 import 'package:tiktok_clone/controller/profile_controller.dart';
-import 'package:tiktok_clone/view/pages/auth/login_page.dart';
 
 class ProfilePage extends StatefulWidget {
   final String uid;
@@ -28,19 +28,19 @@ class _ProfilePageState extends State<ProfilePage> {
         init: ProfileController(),
         builder: (controller) {
           if (controller.user.isEmpty) {
-            return const Center(
-              child: CircularProgressIndicator.adaptive(),
+            return Container(
+              decoration: const BoxDecoration(color: backgroundColor),
+              child: const Center(
+                child: CircularProgressIndicator.adaptive(
+            backgroundColor: Colors.white,
+                ),
+              ),
             );
           }
-          return Scaffold(
+          return Obx(()=>
+          Scaffold(
             appBar: AppBar(
               backgroundColor: backgroundColor,
-              leading: const Icon(
-                Icons.person_add_alt_1_outlined,
-              ),
-              actions: const [
-                Icon(Icons.more_horiz),
-              ],
               title: Text(
                 controller.user['name'],
                 style: const TextStyle(
@@ -59,6 +59,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
+                            vertical10,
                             ClipOval(
                               child: CachedNetworkImage(
                                   placeholder: ((context, url) =>
@@ -199,32 +200,32 @@ class _ProfilePageState extends State<ProfilePage> {
                           height: 25,
                         ),
                         GridView.builder(
-                            shrinkWrap: true,
-                            itemCount: controller.user['thumbnails'].length,
-                            gridDelegate:
-                                const SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: 2,
-                                    childAspectRatio: 1,
-                                    crossAxisSpacing: 4),
-                            itemBuilder: (_, index) {
-                              String thumbnail =
-                                  controller.user['thumbnails'][index];
-                              return CachedNetworkImage(
-                                imageUrl: thumbnail,
-                                fit: BoxFit.cover,
-                                placeholder: (context, url) =>
-                                    const CircularProgressIndicator.adaptive(),
-                              );
-
-                            },
-                            physics: const NeverScrollableScrollPhysics(),),
+                          shrinkWrap: true,
+                          itemCount: controller.user['thumbnails'].length,
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2,
+                                  childAspectRatio: 1,
+                                  crossAxisSpacing: 4),
+                          itemBuilder: (_, index) {
+                            String thumbnail =
+                                controller.user['thumbnails'][index];
+                            return CachedNetworkImage(
+                              imageUrl: thumbnail,
+                              fit: BoxFit.cover,
+                              placeholder: (context, url) =>
+                                  const CircularProgressIndicator.adaptive(),
+                            );
+                          },
+                          physics: const NeverScrollableScrollPhysics(),
+                        ),
                       ],
                     ),
                   )
                 ],
               ),
             )),
-          );
+          ));
         });
   }
 }
